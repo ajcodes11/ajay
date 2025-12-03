@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajay Kumar | Full-Stack Developer & Designer</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#0F172A'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        .hero-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .skill-pill {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            cursor: pointer;
+        }
+        
+        .skill-pill:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .text-gradient {
+            background: linear-gradient(45deg, #3B82F6, #10B981, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .text-secondary {
+            color: #3B82F6;
+        }
+        
+        .bg-secondary {
+            background-color: #10B981;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, #3B82F6, #10B981);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 10px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-dot {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border-radius: 50%;
+            z-index: 1;
+            top: 15px;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(16,185,129,0.15) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.3);
+        }
+        
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-image {
+            transition: all 0.5s ease;
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.2);
+        }
+        
+        .typing-animation::after {
+            content: "|";
+            animation: blink 1s infinite;
+            margin-left: 5px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        .floating-shapes div {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #3B82F6, #10B981);
+            top: 10%;
+            left: 5%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #8B5CF6, #EC4899);
+            bottom: 15%;
+            right: 10%;
+            animation: float 12s infinite ease-in-out reverse;
+        }
+        
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #F59E0B, #EF4444);
+            top: 40%;
+            right: 20%;
+            animation: float 10s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-200">
+    <div class="hero-bg" id="vanta-bg"></div>
+    
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        <div class="shape-3"></div>
+    </div>
+    
+    <div class="fixed bottom-10 right-10 z-50">
+        <a href="#" class="bg-gradient-to-r from-primary to-secondary hover:from-blue-600 hover:to-emerald-600 text-white p-4 rounded-full shadow-lg animate-bounce transition-all duration-300">
+            <i data-feather="arrow-up" class="w-6 h-6"></i>
+        </a>
+    </div>
+    
+    <header class="py-6 px-4 sm:px-6 lg:px-8 sticky top-0 z-40 backdrop-blur-md bg-black/20">
+        <nav class="flex justify-between items-center">
+            <div class="text-2xl font-bold text-gradient font-heading">Ajay Kumar</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-300 hover:text-white transition duration-300 font-medium">About</a>
+                <a href="#education" class="text-gray-300 hover:text-white transition duration-300 font-medium">Education</a>
+                <a href="#skills" class="text-gray-300 hover:text-white transition duration-300 font-medium">Skills</a>
+                <a href="#projects" class="text-gray-300 hover:text-white transition duration-300 font-medium">Projects</a>
+                <a href="#achievements" class="text-gray-300 hover:text-white transition duration-300 font-medium">Achievements</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition duration-300 font-medium">Contact</a>
+            </div>
+            <button class="md:hidden text-white">
+                <i data-feather="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+    </header>
+    
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Hero Section -->
+        <section class="flex flex-col md:flex-row items-center justify-between mb-24 pt-12">
+            <div class="md:w-1/2 mb-16 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 font-heading">
+                    Hello, I'm <span class="text-gradient">Ajay Kumar</span>
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-semibold mb-6 text-accent font-heading">
+                    Full-Stack Developer & Designer
+                </h2>
+                <p class="text-lg mb-8 text-gray-300 max-w-2xl">
+                    A passionate 10th-grade student from Shree Nrisingha Secondary School with expertise in web development and design. 
+                    I create beautiful, functional digital experiences that make an impact.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#contact" class="bg-gradient-to-r from-primary to-secondary hover:from-blue-600 hover:to-emerald-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Contact Me
+                    </a>
+                    <a href="#projects" class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-2/5 animate-float">
+                <div class="glass-card p-4 rounded-full shadow-2xl">
+                    <img src="C:\Users\Laptop care rxl\Desktop\html files\github\aiease_1757131899332.jpg" alt="Ajay Kumar" class="rounded-full w-full h-auto border-4 border-white/20 shadow-xl">
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    About <span class="text-gradient">Me</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="glass-card p-8 backdrop-blur-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent">Personal Details</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center group">
+                                <i data-feather="calendar" class="mr-3 text-secondary group-hover:scale-125 transition-transform"></i>
+                                <span class="text-gray-300">Date of Birth: 04/17/2009</span>
+                            </li>
+                            <li class="flex items-center group">
+                                <i data-feather="droplet" class="mr-3 text-secondary group-hover:scale-125 transition-transform"></i>
+                                <span class="text-gray-300">Blood Group: A+</span>
+                            </li>
+                            <li class="flex items-center group">
+                                <i data-feather="phone" class="mr-3 text-secondary group-hover:scale-125 transition-transform"></i>
+                                <span class="text-gray-300">Contact: 9828203733</span>
+                            </li>
+                            <li class="flex items-center group">
+                                <i data-feather="user" class="mr-3 text-secondary group-hover:scale-125 transition-transform"></i>
+                                <span class="text-gray-300">Father: Sunil Sah Kanu</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent">Who Am I?</h3>
+                        <p class="mb-6 text-gray-300 leading-relaxed">
+                            Hi there! I'm Ajay Kumar Gupta, a 10th-grade student with a passion for technology and programming. 
+                            Despite being in school, I've already mastered several programming languages and frameworks.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            I believe in continuous learning and pushing boundaries. My journey in tech started with simple HTML pages 
+                            and has now evolved into full-stack development with React and Node.js. I love solving complex problems 
+                            and turning ideas into reality through code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education Section -->
+        <section id="education" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    My <span class="text-gradient">Education</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="glass-card p-8 backdrop-blur-xl">
+                <div class="space-y-10">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-gradient-to-r from-primary to-secondary"></div>
+                            <div class="timeline-content">
+                                <h3 class="text-2xl font-semibold text-primary">Shree Nrisingha Secondary School</h3>
+                                <p class="text-gray-300 mb-2 font-medium">2025 - Present</p>
+                                <p class="text-gray-300">Class 10 (Diploma in Computer Science)</p>
+                                <p class="text-gray-300 font-medium">GPA: 3.85/4.0</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm">Computer Science</span>
+                                    <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">Top Performer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-gradient-to-r from-primary to-secondary"></div>
+                            <div class="timeline-content">
+                                <h3 class="text-2xl font-semibold text-primary">CS50: Introduction to Computer Science</h3>
+                                <p class="text-gray-300 mb-2 font-medium">Harvard University (Online)</p>
+                                <p class="text-gray-300">2023 - Completed with Honors</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">C Programming</span>
+                                    <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-sm">Algorithms</span>
+                                    <span class="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">Data Structures</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-gradient-to-r from-primary to-secondary"></div>
+                            <div class="timeline-content">
+                                <h3 class="text-2xl font-semibold text-primary">Front-End Web Development</h3>
+                                <p class="text-gray-300 mb-2 font-medium">freeCodeCamp Certification</p>
+                                <p class="text-gray-300">2022 - 300+ hours coursework</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                                    <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                    <span class="bg-teal-500/20 text-teal-300 px-3 py-1 rounded-full text-sm">Responsive Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    My <span class="text-gradient">Skills</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="glass-card p-8 backdrop-blur-xl">
+                <h3 class="text-2xl font-semibold mb-8 text-center text-accent">Technologies I've Mastered</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++" class="h-10 w-10">
+                        <span class="font-medium">C++</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML5" class="h-10 w-10">
+                        <span class="font-medium">HTML5</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS3" class="h-10 w-10">
+                        <span class="font-medium">CSS3</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript" class="h-10 w-10">
+                        <span class="font-medium">JavaScript</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" class="h-10 w-10">
+                        <span class="font-medium">React</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" class="h-10 w-10">
+                        <span class="font-medium">Node.js</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg" alt="C" class="h-10 w-10">
+                        <span class="font-medium">C</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" class="h-10 w-10">
+                        <span class="font-medium">Figma</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind CSS" class="h-10 w-10">
+                        <span class="font-medium">Tailwind CSS</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Adobe_XD_CC_icon.svg" alt="UI/UX" class="h-10 w-10">
+                        <span class="font-medium">UI/UX</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="h-10 w-10">
+                        <span class="font-medium">Python</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/MongoDB_Logo.svg" alt="MongoDB" class="h-10 w-10">
+                        <span class="font-medium">MongoDB</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg" alt="Git" class="h-10 w-10">
+                        <span class="font-medium">Git</span>
+                    </div>
+                    <div class="skill-pill bg-white/10 text-gray-200 px-6 py-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/20 transition-all duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express.js" class="h-10 w-10">
+                        <span class="font-medium">Express.js</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Professional Skills Section -->
+        <section id="professional-skills" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    Professional <span class="text-gradient">Skills</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="glass-card p-8 backdrop-blur-xl">
+                <div class="space-y-8">
+                    <!-- Problem Solving -->
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-medium text-lg">Problem Solving</span>
+                            <span class="font-bold text-accent">95%</span>
+                        </div>
+                        <div class="progress-bar bg-gray-700">
+                            <div class="progress-fill bg-gradient-to-r from-primary to-secondary" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Communication -->
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-medium text-lg">Communication</span>
+                            <span class="font-bold text-accent">90%</span>
+                        </div>
+                        <div class="progress-bar bg-gray-700">
+                            <div class="progress-fill bg-gradient-to-r from-primary to-secondary" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Teamwork -->
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-medium text-lg">Teamwork</span>
+                            <span class="font-bold text-accent">98%</span>
+                        </div>
+                        <div class="progress-bar bg-gray-700">
+                            <div class="progress-fill bg-gradient-to-r from-primary to-secondary" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Creativity -->
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-medium text-lg">Creativity</span>
+                            <span class="font-bold text-accent">92%</span>
+                        </div>
+                        <div class="progress-bar bg-gray-700">
+                            <div class="progress-fill bg-gradient-to-r from-primary to-secondary" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Leadership -->
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-medium text-lg">Leadership</span>
+                            <span class="font-bold text-accent">88%</span>
+                        </div>
+                        <div class="progress-bar bg-gray-700">
+                            <div class="progress-fill bg-gradient-to-r from-primary to-secondary" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    My <span class="text-gradient">Projects</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project 1 -->
+                <div class="project-card glass-card overflow-hidden">
+                    <div class="overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/1" alt="E-Commerce Website" class="w-full h-52 object-cover project-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-3">E-Commerce Website</h3>
+                        <p class="text-gray-300 mb-5">A full-featured e-commerce platform built with React and Node.js, featuring user authentication, product management, and payment integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="bg-blue-500/20 text-blue-300 text-xs px-3 py-1 rounded-full">React</span>
+                            <span class="bg-green-500/20 text-green-300 text-xs px-3 py-1 rounded-full">Node.js</span>
+                            <span class="bg-purple-500/20 text-purple-300 text-xs px-3 py-1 rounded-full">MongoDB</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary hover:text-secondary font-medium transition">Live Demo</a>
+                            <a href="#" class="text-primary hover:text-secondary font-medium transition">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card glass-card overflow-hidden">
+                    <div class="overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/2" alt="Task Management App" class="w-full h-52 object-cover project-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-3">Task Management App</h3>
+                        <p class="text-gray-300 mb-5">A productivity application that helps users organize tasks with drag-and-drop functionality and real-time collaboration features.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="bg-yellow-500/20 text-yellow-300 text-xs px-3 py-1 rounded-full">JavaScript</span>
+                            <span class="bg-red-500/20 text-red-300 text-xs px-3 py-1 rounded-full">CSS3</span>
+                            <span class="bg-orange-500/20 text-orange-300 text-xs px-3 py-1 rounded-full">Firebase</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary hover:text-secondary font-medium transition">Live Demo</a>
+                            <a href="#" class="text-primary hover:text-secondary font-medium transition">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card glass-card overflow-hidden">
+                    <div class="overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/3" alt="Weather Dashboard" class="w-full h-52 object-cover project-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-3">Weather Dashboard</h3>
+                        <p class="text-gray-300 mb-5">A responsive weather application that displays current conditions and forecasts using data from a public API with interactive charts.</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="bg-indigo-500/20 text-indigo-300 text-xs px-3 py-1 rounded-full">API Integration</span>
+                            <span class="bg-pink-500/20 text-pink-300 text-xs px-3 py-1 rounded-full">Chart.js</span>
+                            <span class="bg-teal-500/20 text-teal-300 text-xs px-3 py-1 rounded-full">Tailwind CSS</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary hover:text-secondary font-medium transition">Live Demo</a>
+                            <a href="#" class="text-primary hover:text-secondary font-medium transition">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Achievements Section -->
+        <section id="achievements" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    My <span class="text-gradient">Achievements</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 text-center hover:bg-white/10 transition-all duration-300">
+                    <div class="text-5xl mb-4 text-accent">🏆</div>
+                    <h3 class="text-2xl font-semibold mb-3">Academic Excellence</h3>
+                    <p class="text-gray-300">Consistently ranked among top students with GPA 3.85/4.0 in Computer Science program</p>
+                </div>
+                <div class="glass-card p-8 text-center hover:bg-white/10 transition-all duration-300">
+                    <div class="text-5xl mb-4 text-accent">💻</div>
+                    <h3 class="text-2xl font-semibold mb-3">Coding Competitions</h3>
+                    <p class="text-gray-300">Winner of regional coding competition 2023, participated in national-level hackathons</p>
+                </div>
+                <div class="glass-card p-8 text-center hover:bg-white/10 transition-all duration-300">
+                    <div class="text-5xl mb-4 text-accent">🚀</div>
+                    <h3 class="text-2xl font-semibold mb-3">Open Source Contributions</h3>
+                    <p class="text-gray-300">Contributed to 5+ open source projects on GitHub, helping improve developer tools</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="mb-24">
+            <h2 class="text-4xl font-bold mb-12 text-center section-title">
+                <span class="inline-block relative">
+                    Get In <span class="text-gradient">Touch</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
+                </span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="glass-card p-8 backdrop-blur-xl">
+                    <h3 class="text-2xl font-semibold mb-8 text-accent">Contact Information</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start group">
+                            <i data-feather="phone" class="mr-4 text-secondary mt-1 group-hover:scale-125 transition-transform"></i>
+                            <div>
+                                <h4 class="font-medium text-lg">Phone</h4>
+                                <p class="text-gray-300">9828203733</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <i data-feather="mail" class="mr-4 text-secondary mt-1 group-hover:scale-125 transition-transform"></i>
+                            <div>
+                                <h4 class="font-medium text-lg">Email</h4>
+                                <p class="text-gray-300">ajaykumar@example.com</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <i data-feather="map-pin" class="mr-4 text-secondary mt-1 group-hover:scale-125 transition-transform"></i>
+                            <div>
+                                <h4 class="font-medium text-lg">Location</h4>
+                                <p class="text-gray-300">Birgunj, Pipramath-14, Nepal</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <i data-feather="clock" class="mr-4 text-secondary mt-1 group-hover:scale-125 transition-transform"></i>
+                            <div>
+                                <h4 class="font-medium text-lg">Availability</h4>
+                                <p class="text-gray-300">Monday - Friday: 9AM - 6PM (NPT)</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 backdrop-blur-xl">
+                    <h3 class="text-2xl font-semibold mb-8 text-accent">Send Me a Message</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block mb-2 font-medium">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-gray-400">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2 font-medium">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-gray-400">
+                        </div>
+                        <div>
+                            <label for="subject" class="block mb-2 font-medium">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-gray-400">
+                        </div>
+                        <div>
+                            <label for="message" class="block mb-2 font-medium">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-gray-400"></textarea>
+                        </div>
+                        <button type="submit" class="bg-gradient-to-r from-primary to-secondary hover:from-blue-600 hover:to-emerald-600 text-white px-8 py-4 rounded-full font-medium transition-all w-full transform hover:scale-105 shadow-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="py-12 text-center glass-card backdrop-blur-xl bg-black/30">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="#" class="social-icon text-white hover:text-secondary transition">
+                    <i data-feather="github" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="social-icon text-white hover:text-secondary transition">
+                    <i data-feather="twitter" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="social-icon text-white hover:text-secondary transition">
+                    <i data-feather="linkedin" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="social-icon text-white hover:text-secondary transition">
+                    <i data-feather="instagram" class="w-8 h-8"></i>
+                </a>
+                <a href="#" class="social-icon text-white hover:text-secondary transition">
+                    <i data-feather="youtube" class="w-8 h-8"></i>
+                </a>
+            </div>
+            <div class="mb-8">
+                <button class="bg-gradient-to-r from-primary to-secondary hover:from-blue-600 hover:to-emerald-600 text-white px-8 py-3 rounded-full font-medium shadow-lg transform hover:scale-105 transition-all">
+                    Download CV
+                </button>
+            </div>
+            <p class="text-gray-400">
+                &copy; 2023 Ajay Kumar. All rights reserved. 
+                <span class="text-gradient font-medium">Made with ❤️ and ☕</span>
+            </p>
+            <p class="text-gray-500 mt-2 text-sm">
+                Designed and Developed by Ajay Kumar
+            </p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script>
+        // Initialize Vanta.js net effect
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3b82f6,
+            backgroundColor: 0x0f172a,
+            points: 15.00,
+            maxDistance: 25.00,
+            spacing: 20.00
+        });
+        
+        feather.replace();
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animation on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Progress bar animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
